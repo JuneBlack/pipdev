@@ -2,6 +2,7 @@ package com.qian.xm.pipdev.service.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.activiti.bpmn.converter.BpmnXMLConverter;
@@ -72,6 +73,25 @@ public class ProcDefServiceImpl extends BaseService implements ProcDefService {
 	public String startProcess(String procDefId) {
 		ProcessInstance procIns = runtimeService.startProcessInstanceById(procDefId);
 		return procIns.getId();
+	}
+
+	@Override
+	public InputStream getProcDefResource(String procDefId, String resourceType) {
+		InputStream resource = null;
+		ProcessDefinition procDef = repositoryService.getProcessDefinition(procDefId);
+		String resourceName = null ;
+		if (procDef != null) {
+			if ("image".equals(resourceType)) {
+				resourceName = procDef.getDiagramResourceName();
+			}else if ("xml".equals(resourceType)) {
+				resourceName = procDef.getResourceName();
+			} 
+		}
+		
+		if (resourceName != null) {
+			resource = repositoryService.getResourceAsStream(procDef.getDeploymentId(), resourceName);
+		}
+		return resource;
 	}
 
 }

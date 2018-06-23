@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>DataGrid 数据表格</title>
+    <title></title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link href="../css/demo.css" rel="stylesheet" type="text/css" />
 
@@ -54,9 +54,7 @@
             <div field="state" width="100" allowSort="true" >状态
                 <input property="editor" class="mini-spinner"  minValue="0" maxValue="200" value="25" style="width:100%;"/>
             </div> 
-            
-            <div name="action" headerAlign="center" >流程操作
-            </div>
+            <div name="action" headerAlign="center" >流程操作</div>
         </div>
     </div>
     
@@ -148,7 +146,8 @@
         	if(column.name == "action"){
         		e.cellStyle = "text-align:center";
         		e.cellHtml = '<a target="_blank" href="processTrace?procInsId=' + record.id + '">跟踪</a>&nbsp;&nbsp;' +
-        				'<a href="javascript:update(\''+ record.id +'\')">挂起</a>&nbsp;';
+        				'<a href="javascript:startProc(\''+ record.id +'\')">启动流程</a>&nbsp;';
+        				'<a href="javascript:update(\''+ record.id +'\')">挂起</a>&nbsp;' +
         	}
         });
 

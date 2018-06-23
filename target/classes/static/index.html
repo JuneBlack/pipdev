@@ -1,7 +1,8 @@
 ﻿<!doctype html>
 
 <html>
-<head>    
+<head>
+	<title>WEB流程开发</title>    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
@@ -72,9 +73,10 @@
 
 </body>
 <script>
-
+	mini.parse();
+  	var tabs = mini.get("mainTabs");
+	
     function activeTab(item) {
-        var tabs = mini.get("mainTabs");
         var tab = tabs.getTab(item.id);
         if (!tab) {
             tab = { name: item.id, title: item.text, url: item.url, iconCls: item.iconCls, showCloseButton: true };
@@ -84,7 +86,6 @@
     }
 
     $(function () {
-
         //menu
         var menu = new Menu("#mainMenu", {
             itemclick: function (item) {
@@ -123,6 +124,45 @@
         });
     });
 
+    /* tab操作   START */
+	//	1、add tab
+	function addTab(t,u) {
+	    var tab = { title: t, url: u, showCloseButton: true };
+	    tab.ondestroy = function (e) {
+	        var tabs = e.sender;
+	        var iframe = tabs.getTabIFrameEl(e.tab);
+	
+	        //获取子页面返回数据
+	        var pageReturnData = iframe.contentWindow.getData ? iframe.contentWindow.getData() : "";
+	
+	        //alert(e.tab.removeAction + " : " + pageReturnData);
+	        
+	        //如果禁止销毁的时候，自动active一个新tab：e.autoActive = false;
+	    }
+	    tabs.addTab(tab);
+	
+	    //active tab
+	    tabs.activeTab(tab);
+	
+	}
+	function removeTab() {
+	    var tab = tabs.getActiveTab();
+	    if (tab) {
+	        tabs.removeTab(tab);
+	    }
+	}
+	
+	function onTabDestroy(e) {
+	    //alert(e.tab.removeAction);
+	}
+	
+	
+	function loadTab() {
+	    var tab = tabs.getActiveTab();
+	    tabs.loadTab("pages/page1.html", tab);
+	}
+    /* tab操作   END */
+    
 </script>
 </html>
 

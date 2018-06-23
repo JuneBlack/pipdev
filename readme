@@ -1,3 +1,18 @@
+项目描述：
+	此项目环境由SpringBoot搭建，集成工作流流程引擎Activiti，数据库使用MySQL，前端框架使用jQuery mini UI，并集成了WEB端流程设计器。
+
+	提供WEB端流程设计功能，并实现前端对流程的部署、流程启动、流程跟踪、代办任务查询、完成任务，以此实现对流程的测试。
+	
+
+	目前实现的功能： 流程图设计、流程部署、流程定义XML查看、流程定义图片查看、
+
+
+
+
+
+
+#########################################################################################################
+
 引入模型依赖启动出现问题： 缺少jars
 
 org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'modelEditorJsonRestResource': Unsatisfied dependency expressed through field 'repositoryService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'repositoryServiceBean' defined in class path resource [org/activiti/spring/boot/DataSourceProcessEngineAutoConfiguration$DataSourceProcessEngineConfiguration.class]: Unsatisfied dependency expressed through method 'repositoryServiceBean' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'processEngine': FactoryBean threw exception on object creation; nested exception is java.lang.NoClassDefFoundError: org/activiti/bpmn/model/AdhocSubProcess

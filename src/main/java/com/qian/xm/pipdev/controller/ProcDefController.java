@@ -1,9 +1,13 @@
 package com.qian.xm.pipdev.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
@@ -86,5 +90,37 @@ public class ProcDefController {
 		log.debug("启动流程实例成功");
 		return "success";
 	}
+	
+	/**
+	 * 获取流程定义二进制文件 
+	 * @param procDefId
+	 * @param resourceType
+	 * @param response
+	 */
+	@RequestMapping("getProcDefResource")
+	public void getProcDefResource(String procDefId,String resourceType,HttpServletResponse response) {
+		InputStream resource = null;
+		if (procDefId != null && !"".equals(procDefId)) {
+			resource = procDefService.getProcDefResource(procDefId,resourceType);
+		}
+		
+		if (resource != null) {
+			byte[] b = new byte[1024];
+			int len = 0;
+			try {
+				while ((len = resource.read(b, 0, 1024))!= -1) {
+					response.getOutputStream().write(b, 0, len);
+					System.out.println(b);
+				}
+			} catch (IOException e) {
+				log.error("响应流数据异常：" + e.getMessage(), e);
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+	
+	
 	
 }

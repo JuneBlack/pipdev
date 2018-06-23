@@ -52,17 +52,20 @@ public class ProcInsController {
 		if (procInsId != null && !"".equals(procInsId)) {
 			InputStream traceResource = procInsService.getTraceRresource(procInsId);
 			
-			byte[] b = new byte[1024];
-			
-			int len = 0;
-			try {
-				while ((len = traceResource.read(b, 0, 1024))!= -1) {
+			if (traceResource != null) {
+				byte[] b = new byte[1024];
+				
+				int len = 0;
+				try {
+					while ((len = traceResource.read(b, 0, 1024))!= -1) {
 						response.getOutputStream().write(b, 0, len);
+					}
+				} catch (IOException e) {
+					log.error("相应流异常：" + e.getMessage(), e);
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			
 		}
 		
 		

@@ -61,6 +61,8 @@
                 <input property="editor" class="mini-spinner"  minValue="0" maxValue="200" value="25" style="width:100%;"/>
             </div> 
             
+            <div name="startAction" headerAlign="center" >启动流程
+            </div>
             <div name="procDefXML" headerAlign="center" >流程定义XML
             </div>
             <div name="pocDefPNG" headerAlign="center" >流程定义图片
@@ -85,14 +87,37 @@
         	
         	if(column.name == "procDefXML"){
         		e.cellStyle = "text-align:center";
+        	/* 	
         		e.cellHtml = '<a href="javascript:seeXML( \'' + record.id + '\' )">XML</a>';
+        	 */	
+        		e.cellHtml = '<a target="_blank" href="getProcDefResource?resourceType=xml&procDefId=' + record.id + '">XML</a>';
         	}
         	if(column.name == "pocDefPNG"){
         		e.cellStyle = "text-align:center";
         		e.cellHtml = '<a href="javascript:seePNG( \'' + record.id + '\' )">PNG</a>';
         	}
         	
+        	if(column.name == "startAction"){
+        		e.cellStyle = "text-align:center";
+        		e.cellHtml = '<a href="javascript:startProc(\''+ record.id +'\')">启动流程</a>&nbsp;';
+        	}
+        	
         })
+        
+        function startProc(procDefId){
+        	$.ajax({
+        		url:"startProcess?procDefId=" + procDefId,
+        		type:"post",
+        		success:function(e){
+        			if("success" == e){
+        				showTips(e,"启动成功！");
+        			}else{
+        				showTips("warning","启动失败：" + e);
+        			}
+        		}
+        	});
+        }
+        
         /* 查看流程定义XML */
 		function seeXML(procDefId){
 			var url = "procDef/getProcDefResource?resourceType=xml&procDefId=" + procDefId;

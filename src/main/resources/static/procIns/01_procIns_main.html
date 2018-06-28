@@ -146,24 +146,10 @@
         	if(column.name == "action"){
         		e.cellStyle = "text-align:center";
         		e.cellHtml = '<a target="_blank" href="processTrace?procInsId=' + record.id + '">跟踪</a>&nbsp;&nbsp;' +
-        				'<a href="javascript:startProc(\''+ record.id +'\')">启动流程</a>&nbsp;';
-        				'<a href="javascript:update(\''+ record.id +'\')">挂起</a>&nbsp;' +
+        				'<a href="javascript:update(\''+ record.id +'\')">挂起</a>&nbsp;';
         	}
         });
 
-        function track(procDefId){
-        	$.ajax({
-        		url:"startProcess?procDefId=" + procDefId,
-        		type:"post",
-        		success:function(e){
-        			if("success" == e){
-        				showTips(e,"启动成功！");
-        			}else{
-        				showTips("warning","启动失败：" + e);
-        			}
-        		}
-        	});
-        }
         function showTips(e,text) {
            
             mini.showTips({

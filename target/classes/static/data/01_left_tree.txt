@@ -18,7 +18,7 @@
         { "id": "djbm", iconCls: "fa fa-barcode", text: "启动流程", url: "pages/1.html" },
         { "id": "xtgn", iconCls: "fa fa-navicon", text: "流程自动化测试", url: "pages/1.html" },
         { "id": "excel", iconCls: "fa fa-file-excel-o", text: "任务办理", children: [
-                  { "id": "drpz", iconCls: "fa fa-sign-out", text: "代办任务", url: "pages/1.html" },
+                  { "id": "drpz", iconCls: "fa fa-sign-out", text: "代办任务", url: "/task/01_task_agency_main.html" },
                   { "id": "dcpz", iconCls: "fa fa-sign-out", text: "已办任务", url: "pages/1.html" },
                   { "id": "dcpzz", iconCls: "fa fa-sign-out", text: "未分配任务", url: "pages/1.html" }
             ]
